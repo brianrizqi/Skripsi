@@ -15,16 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash"></activity>
-        <activity android:name=".Activities.Masuk" />
-        <activity android:name=".Activities.Daftar" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.Masuk" />
+        <activity android:name=".Activities.Daftar" />
+        <activity android:name=".Activities.MainActivity"/>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

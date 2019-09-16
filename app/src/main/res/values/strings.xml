@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Skripsi</string>
+    <string name="splash_welcome">Welcome to E-Farm</string>
+    <string name="splash_desc">Aplikasi ini memberikan rekomendasi tanaman pangan pada zona agroekologi alf3.1</string>
     <string name="facebook_app_id">3076342765773754</string>
     <string name="fb_login_protocol_scheme">fb3076342765773754</string>
     <string name="google_client_secret">Q2YJGQSUME94G9_XvcW4ncix</string>

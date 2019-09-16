@@ -22,7 +22,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/lato"
         android:text="Login"
-        android:textColor="@color/blackColor"
+        android:textColor="@color/colorBlack"
         android:textSize="22.5dp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/greenButton"
+        app:cardBackgroundColor="@color/colorGreen"
         app:cardCornerRadius="5dp">
 
         <RelativeLayout
@@ -104,7 +104,7 @@
             android:layout_width="160dp"
             android:layout_height="55dp"
             android:layout_marginRight="10dp"
-            app:cardBackgroundColor="@color/greyButton"
+            app:cardBackgroundColor="@color/colorGrey"
             app:cardCornerRadius="5dp"
             app:contentPadding="1dp">
 
@@ -138,7 +138,7 @@
                         android:layout_toRightOf="@id/imgFacebook"
                         android:fontFamily="@font/lato"
                         android:text="Facebook"
-                        android:textColor="@color/blackColor"
+                        android:textColor="@color/colorBlack"
                         android:textSize="20dp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -149,7 +149,7 @@
             android:layout_height="55dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
-            app:cardBackgroundColor="@color/greyButton"
+            app:cardBackgroundColor="@color/colorGrey"
             app:cardCornerRadius="5dp"
             app:contentPadding="1dp">
 
@@ -185,7 +185,7 @@
                         android:layout_toRightOf="@id/imgGoogle"
                         android:fontFamily="@font/lato"
                         android:text="Google"
-                        android:textColor="@color/blackColor"
+                        android:textColor="@color/colorBlack"
                         android:textSize="20dp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>

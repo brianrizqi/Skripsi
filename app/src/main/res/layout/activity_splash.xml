@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Splash">
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Activities.Splash">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/splash_ilus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/source_bold"
+        android:text="@string/splash_welcome"
+        android:textColor="@color/colorBlack"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/source_reg"
+        android:text="@string/splash_desc"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        app:cardBackgroundColor="@color/colorGreen"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2.5dp">
+
+        <RelativeLayout
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/source_semi"
+                android:text="Login Now"
+                android:textColor="@color/colorWhite"
+                android:textSize="18dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2.5dp">
+
+        <RelativeLayout
+            android:id="@+id/btnRegis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/source_semi"
+                android:text="Create Account"
+                android:textColor="@color/colorGreen"
+                android:textSize="18dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
