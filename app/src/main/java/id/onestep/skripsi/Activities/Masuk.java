@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -28,6 +29,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,108 +39,73 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.onestep.skripsi.R;
+import id.onestep.skripsi.Response.LoginResponse;
+import id.onestep.skripsi.Service.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Masuk extends AppCompatActivity {
-    @BindView(R.id.btnFacebook)
-    LoginButton btnFacebook;
-    @BindView(R.id.btnGoogle)
-    SignInButton btnGoogle;
-    int RC_SIGN_IN = 0;
-    CallbackManager callbackManager;
-    GoogleSignInClient mGoogleSignInClient;
+    @BindView(R.id.etEmail)
+    TextInputEditText etEmail;
+    @BindView(R.id.etPassword)
+    TextInputEditText etPassword;
+    @BindView(R.id.btnLogin)
+    RelativeLayout btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
         ButterKnife.bind(this);
-
-        callbackManager = CallbackManager.Factory.create();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        btnFacebook.setReadPermissions(Arrays.asList("email", "public_profile"));
-
-        btnFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-
-        btnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                googleSignIn();
+            public void onClick(View v) {
+                login();
             }
         });
     }
 
-    private void googleSignIn() {
-        Intent intent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(intent, RC_SIGN_IN);
-    }
+    private void login() {
+        String username = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+        if (username.isEmpty()) {
+            etEmail.setError("Email or Username is required");
+            etEmail.requestFocus();
+            return;
         }
-    }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            Intent i = new Intent(Masuk.this, Daftar.class);
-            startActivity(i);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("error", "signInResult:failed code=" + e.getStatusCode());
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return;
         }
-    }
 
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
-        }
-    };
-
-    private void loadUserProfile(AccessToken newAccessToken) {
-        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+        Call<LoginResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .login(
+                        username,
+                        password
+                );
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                try {
-                    String first_name = object.getString("first_name");
-                    String last_name = object.getString("last_name");
-                    String email = object.getString("email");
-                    String id = object.getString("id");
-                } catch (JSONException e) {
-                    Toast.makeText(Masuk.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (!response.body().isError()) {
+                    Toast.makeText(Masuk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(Masuk.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Toast.makeText(Masuk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-        });
 
-        Bundle bundle = new Bundle();
-        bundle.putString("fields", "first_name,last_name,email,id");
-        request.setParameters(bundle);
-        request.executeAsync();
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(Masuk.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

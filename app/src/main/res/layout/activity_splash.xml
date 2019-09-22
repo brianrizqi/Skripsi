@@ -39,7 +39,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        app:cardBackgroundColor="@color/colorGreen"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="5dp"
         app:cardElevation="2.5dp">
 
@@ -81,7 +81,7 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/source_semi"
                 android:text="Create Account"
-                android:textColor="@color/colorGreen"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18dp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

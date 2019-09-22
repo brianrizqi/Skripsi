@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     android:padding="15dp"
     tools:context=".Activities.Masuk">
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:fontFamily="@font/lato"
+        android:fontFamily="@font/source_reg"
         android:text="Login"
         android:textColor="@color/colorBlack"
         android:textSize="22.5dp" />
@@ -35,11 +35,9 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:hint="Email or Username"
+            android:inputType="text"
             android:maxLength="32"
-            android:padding="10dp"
-            android:textSize="16sp"
             tools:text="rizqibrian@gmail.com" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -58,8 +56,6 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:maxLength="32"
-            android:padding="10dp"
-            android:textSize="16sp"
             tools:text="brianrizqi" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -68,10 +64,11 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/colorGreen"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="5dp">
 
         <RelativeLayout
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -80,117 +77,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/nunito"
+                android:fontFamily="@font/source_semi"
                 android:text="Login"
                 android:textColor="#fff"
                 android:textSize="22.5dp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/lato"
-        android:text="atau login dengan"
-        android:textAlignment="center" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="20dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="160dp"
-            android:layout_height="55dp"
-            android:layout_marginRight="10dp"
-            app:cardBackgroundColor="@color/colorGrey"
-            app:cardCornerRadius="5dp"
-            app:contentPadding="1dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="5dp">
-
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/btnFacebook"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#00333333" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imgFacebook"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:src="@mipmap/facebook" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/imgFacebook"
-                        android:fontFamily="@font/lato"
-                        android:text="Facebook"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20dp" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="160dp"
-            android:layout_height="55dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            app:cardBackgroundColor="@color/colorGrey"
-            app:cardCornerRadius="5dp"
-            app:contentPadding="1dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                app:cardCornerRadius="5dp"
-                app:contentPadding="1dp">
-
-                <com.google.android.gms.common.SignInButton
-                    android:id="@+id/btnGoogle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imgGoogle"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:src="@mipmap/search" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/imgGoogle"
-                        android:fontFamily="@font/lato"
-                        android:text="Google"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20dp" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
 
 
 </LinearLayout>
