@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_view_thumb"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/navigation_plant"
+        android:icon="@drawable/ic_sprout"
+        android:title="Plant" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_user"
+        android:title="Profile" />
+</menu>

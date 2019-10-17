@@ -38,6 +38,7 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.onestep.skripsi.Others.TinyDB;
 import id.onestep.skripsi.R;
 import id.onestep.skripsi.Response.LoginResponse;
 import id.onestep.skripsi.Service.Service;
@@ -52,11 +53,13 @@ public class Masuk extends AppCompatActivity {
     TextInputEditText etPassword;
     @BindView(R.id.btnLogin)
     RelativeLayout btnLogin;
+    TinyDB tinyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
+        tinyDB = new TinyDB(this);
         ButterKnife.bind(this);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +96,7 @@ public class Masuk extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (!response.body().isError()) {
+                    tinyDB.putBoolean("isLogin", true);
                     Toast.makeText(Masuk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Masuk.this, MainActivity.class);
                     startActivity(i);

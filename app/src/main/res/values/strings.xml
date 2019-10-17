@@ -6,4 +6,7 @@
     <string name="fb_login_protocol_scheme">fb3076342765773754</string>
     <string name="google_client_secret">Q2YJGQSUME94G9_XvcW4ncix</string>
     <string name="google_client_id">218606318568-ird80mkihgre112hvamtnvlph3ssv1es.apps.googleusercontent.com</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

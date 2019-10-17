@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#66bb6a</color>
     <color name="colorPrimaryDark">#FFF</color>
-    <color name="colorAccent">#ff8080</color>
+    <color name="colorAccent">#66bb6a</color>
     <color name="colorBlack">#1c1d1d</color>
     <color name="colorGreen">#4caf50</color>
     <color name="colorYellow">#fdd835</color>
@@ -15,4 +15,8 @@
     <color name="colorGrey">#A0A4A8</color>
     <color name="colorTransparant">#00FFFFFF</color>
     <color name="facebookButton">#4c64b5</color>
+
+    <color name="colorBgMorning">#c0eae6</color>
+    <color name="colorBgAfternoon">#f9ed6a</color>
+    <color name="colorBgNight">#284b69</color>
 </resources>

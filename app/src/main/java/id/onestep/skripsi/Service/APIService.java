@@ -1,11 +1,13 @@
 package id.onestep.skripsi.Service;
 
 
+import id.onestep.skripsi.Response.ArticleResponse;
 import id.onestep.skripsi.Response.DefaultResponse;
 import id.onestep.skripsi.Response.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIService {
@@ -25,4 +27,7 @@ public interface APIService {
             @Field("password") String password,
             @Field("username") String username
     );
+
+    @GET("article")
+    Call<ArticleResponse> getArticle();
 }
