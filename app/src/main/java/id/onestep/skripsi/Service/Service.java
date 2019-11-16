@@ -5,8 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Service {
     //php artisan serve --host 0.0.0.0 -> run cmd
-    private static final String BASE_URL = "http://10.132.6.216:8000/api/"; // ipconfig cmd
-    public static final String BASE_URL_STORAGE = "http://10.132.6.216:8000/storage/";
+    private static final String BASE_URL = "http://10.10.76.162:8000/api/"; // ipconfig cmd
+    public static final String BASE_URL_STORAGE = "http://192.168.1.6:8000/storage/";
     private static Service mInstance;
     private Retrofit retrofit;
 

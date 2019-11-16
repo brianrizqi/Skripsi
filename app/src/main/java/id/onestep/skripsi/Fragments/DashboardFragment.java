@@ -32,7 +32,9 @@ import id.onestep.skripsi.Adapter.ArticleAdapter;
 import id.onestep.skripsi.Models.Article;
 import id.onestep.skripsi.R;
 import id.onestep.skripsi.Response.ArticleResponse;
+import id.onestep.skripsi.Response.WeatherResponse;
 import id.onestep.skripsi.Service.Service;
+import id.onestep.skripsi.Service.WeatherService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +50,12 @@ public class DashboardFragment extends Fragment {
     TextView txtGreeting;
     @BindView(R.id.bgTextGreeting)
     RelativeLayout bgTextGreeting;
+    @BindView(R.id.txtCuaca)
+    TextView txtCuaca;
+    @BindView(R.id.imgCuaca)
+    ImageView imgCuaca;
+    @BindView(R.id.txtSuhu)
+    TextView txtSuhu;
     @BindView(R.id.rvArticle)
     RecyclerView rvArticle;
     ArticleAdapter adapter;
@@ -64,18 +72,12 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ButterKnife.bind(this, view);
         Window window = getActivity().getWindow();
-
-// clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-// finally change the color
         greeting(window);
         rvArticle.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvArticle.setHasFixedSize(true);
-        getArticle();
+//        getArticle();
         return view;
     }
 
@@ -88,9 +90,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
                 list = response.body().getData();
-                adapter = new ArticleAdapter(getActivity(), list);
-                rvArticle.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                if (list.size() == 0) {
+                    Toast.makeText(getActivity(), "a", Toast.LENGTH_SHORT).show();
+                } else {
+                    adapter = new ArticleAdapter(getActivity(), list);
+                    rvArticle.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -112,6 +118,10 @@ public class DashboardFragment extends Fragment {
             txtGreeting.setText("Selamat Pagi");
             bgTextGreeting.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBgMorning));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorBgMorning));
+            txtCuaca.setText("Hari Ini");
+            Glide.with(getActivity())
+                    .load("https://www.accuweather.com/images/weathericons/6.svg")
+                    .into(imgCuaca);
         } else if (timeOfDay >= 12 && timeOfDay < 18) {
             Glide.with(getActivity())
                     .load(R.mipmap.afternoon)
@@ -119,6 +129,10 @@ public class DashboardFragment extends Fragment {
             txtGreeting.setText("Selamat Siang");
             bgTextGreeting.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBgAfternoon));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorBgAfternoon));
+            txtCuaca.setText("Hari Ini");
+            Glide.with(getActivity())
+                    .load("https://www.accuweather.com/images/weathericons/6.svg")
+                    .into(imgCuaca);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
             Glide.with(getActivity())
                     .load(R.mipmap.night)
@@ -126,6 +140,42 @@ public class DashboardFragment extends Fragment {
             txtGreeting.setText("Selamat Malam");
             bgTextGreeting.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBgNight));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorBgNight));
+            txtCuaca.setText("Malam Ini");
+            Glide.with(getActivity())
+                    .load("https://www.accuweather.com/images/weathericons/34.svg")
+                    .into(imgCuaca);
         }
+        getWeather(timeOfDay);
+    }
+
+    private void getWeather(int timeOfDay) {
+        String apikey = "OwA3GRiw3IHI0snDLPhcW4HxJ5AkFbrS";
+        String language = "id-id";
+        boolean details = true;
+        boolean metric = true;
+        Call<WeatherResponse> call = WeatherService
+                .getInstance()
+                .getAPI()
+                .getCurrentWeather(
+                        apikey,
+                        language,
+                        details,
+                        metric
+                );
+        call.enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                if (timeOfDay >= 0 && timeOfDay < 18) {
+                    txtSuhu.setText(String.valueOf(response.body().getDailyForecasts().get(0).getTemperature().getMaximum().getValue()));
+                } else if (timeOfDay >= 18 && timeOfDay < 24) {
+                    txtSuhu.setText(String.valueOf(response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

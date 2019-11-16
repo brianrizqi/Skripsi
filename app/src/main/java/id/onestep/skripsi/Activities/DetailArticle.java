@@ -1,4 +1,4 @@
-package id.onestep.skripsi;
+package id.onestep.skripsi.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.onestep.skripsi.Models.Article;
+import id.onestep.skripsi.R;
 
 import static id.onestep.skripsi.Service.Service.BASE_URL_STORAGE;
 

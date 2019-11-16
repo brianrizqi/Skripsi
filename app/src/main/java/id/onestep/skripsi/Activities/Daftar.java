@@ -31,8 +31,6 @@ public class Daftar extends AppCompatActivity {
     TextInputEditText etUsername;
     @BindView(R.id.etPassword)
     TextInputEditText etPassword;
-    @BindView(R.id.etLandArea)
-    TextInputEditText etLandArea;
     @BindView(R.id.btnRegis)
     RelativeLayout btnRegis;
 
@@ -54,7 +52,6 @@ public class Daftar extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        String land_area = etLandArea.getText().toString().trim();
 
         if (name.isEmpty()) {
             etName.setError("Name is required");
@@ -86,12 +83,6 @@ public class Daftar extends AppCompatActivity {
             return;
         }
 
-        if (land_area.isEmpty()) {
-            etLandArea.setError("Land Area is required");
-            etLandArea.requestFocus();
-            return;
-        }
-
         Call<DefaultResponse> call = Service
                 .getInstance()
                 .getAPI()
@@ -99,8 +90,7 @@ public class Daftar extends AppCompatActivity {
                         name,
                         email,
                         username,
-                        password,
-                        Integer.parseInt(land_area)
+                        password
                 );
         call.enqueue(new Callback<DefaultResponse>() {
             @Override

@@ -1,6 +1,7 @@
 package id.onestep.skripsi.Service;
 
 
+import id.onestep.skripsi.Models.Weathers;
 import id.onestep.skripsi.Response.ArticleResponse;
 import id.onestep.skripsi.Response.DefaultResponse;
 import id.onestep.skripsi.Response.LoginResponse;
@@ -16,18 +17,20 @@ public interface APIService {
     Call<DefaultResponse> daftar(
             @Field("name") String name,
             @Field("email") String email,
-            @Field("password") String password,
             @Field("username") String username,
-            @Field("land_area") int luas_lahan
+            @Field("password") String password
     );
 
     @FormUrlEncoded
     @POST("login")
     Call<LoginResponse> login(
-            @Field("password") String password,
-            @Field("username") String username
+            @Field("username") String username,
+            @Field("password") String password
     );
 
     @GET("article")
     Call<ArticleResponse> getArticle();
+
+    @GET("cuaca")
+    Call<Weathers> getWeather();
 }
