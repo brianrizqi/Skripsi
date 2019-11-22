@@ -149,7 +149,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void getWeather(int timeOfDay) {
-        String apikey = "OwA3GRiw3IHI0snDLPhcW4HxJ5AkFbrS";
+        String apikey = "uVvLKySk6THbf19xlGxG1fFzN9AO2C89";
         String language = "id-id";
         boolean details = true;
         boolean metric = true;

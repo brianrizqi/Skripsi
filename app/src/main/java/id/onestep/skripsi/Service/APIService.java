@@ -6,6 +6,7 @@ import id.onestep.skripsi.Response.ArticleResponse;
 import id.onestep.skripsi.Response.DefaultResponse;
 import id.onestep.skripsi.Response.LahanResponse;
 import id.onestep.skripsi.Response.LoginResponse;
+import id.onestep.skripsi.Response.TanamanResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -48,4 +49,8 @@ public interface APIService {
             @Field("large") int large
     );
 
+    @GET("planting/{area_id}")
+    Call<TanamanResponse> getTanaman(
+            @Path("area_id") int area_id
+    );
 }

@@ -1,6 +1,7 @@
 package id.onestep.skripsi.Adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.onestep.skripsi.Models.Lahan.Lahan;
 import id.onestep.skripsi.R;
+import id.onestep.skripsi.Activities.Tanaman;
 
 public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> {
     private Activity activity;
@@ -46,6 +48,14 @@ public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> 
         if (post.getPlantings().size() != 0) {
             holder.txtItemLahanTanaman.setText("Tanaman " + post.getPlantings().get(0).getPlant().getName());
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, Tanaman.class);
+                i.putExtra("area_id", post.getId());
+                activity.startActivity(i);
+            }
+        });
     }
 
     @Override

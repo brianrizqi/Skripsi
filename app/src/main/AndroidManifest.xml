@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.TambahLahan"></activity>
+        <activity android:name=".Activities.Tanaman"></activity>
+        <activity android:name=".Activities.TambahLahan" />
         <activity android:name=".Activities.DetailArticle" />
         <activity android:name=".Activities.Splash">
             <intent-filter>
