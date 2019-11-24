@@ -53,6 +53,7 @@ public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> 
             public void onClick(View v) {
                 Intent i = new Intent(activity, Tanaman.class);
                 i.putExtra("area_id", post.getId());
+                i.putExtra("lahan", position + 1);
                 activity.startActivity(i);
             }
         });

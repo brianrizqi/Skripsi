@@ -13,10 +13,65 @@
         android:background="@color/colorWhite"
         android:padding="10dp">
 
+        <RelativeLayout
+            android:id="@+id/bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtTanamanLahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_semi"
+                android:textColor="@color/colorBlack"
+                android:textSize="22dp"
+                tools:text="Lahan" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:id="@+id/btnTambahTanaman"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="Tambah Tanaman"
+                        android:textColor="@color/colorWhite" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgNoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bg"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/no_data"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTanaman"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/bg"
             tools:listitem="@layout/item_tanaman">
 
         </androidx.recyclerview.widget.RecyclerView>

@@ -100,6 +100,15 @@
                 android:textSize="18dp" />
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/imgNoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bg"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/no_data"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvArticle"
             android:layout_width="match_parent"

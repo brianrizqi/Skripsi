@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/side"
+            android:layout_width="10dp"
+            android:layout_height="80dp"
+            tools:background="@color/colorBlue"></RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtItemHasilTanaman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/side"
+            android:fontFamily="@font/source_semi"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            tools:text="Padi" />
+
+        <TextView
+            android:id="@+id/txtItemHasil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtItemHasilTanaman"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/side"
+            android:fontFamily="@font/source_reg"
+            android:textSize="16dp"
+            tools:text="Sangat Sesuai" />
+
+        <TextView
+            android:id="@+id/txtItemHasilPresentase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/source_semi"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            tools:text="Presentase : 80 %" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

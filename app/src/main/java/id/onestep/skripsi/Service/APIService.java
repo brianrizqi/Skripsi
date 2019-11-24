@@ -6,6 +6,7 @@ import id.onestep.skripsi.Response.ArticleResponse;
 import id.onestep.skripsi.Response.DefaultResponse;
 import id.onestep.skripsi.Response.LahanResponse;
 import id.onestep.skripsi.Response.LoginResponse;
+import id.onestep.skripsi.Response.PlantResponse;
 import id.onestep.skripsi.Response.TanamanResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -52,5 +53,23 @@ public interface APIService {
     @GET("planting/{area_id}")
     Call<TanamanResponse> getTanaman(
             @Path("area_id") int area_id
+    );
+
+    @GET("plant")
+    Call<PlantResponse> getTumbuhan();
+
+    @FormUrlEncoded
+    @POST("planting")
+    Call<DefaultResponse> addTanamanManual(
+            @Field("area_id") int area_id,
+            @Field("plant_id") int plant_id
+    );
+
+    @FormUrlEncoded
+    @POST("planting/{planting_id}/edit")
+    Call<DefaultResponse> verifTanaman(
+            @Path("planting_id") int planting_id,
+            @Field("pemasukan") int pemasukan,
+            @Field("pengeluaran") int pengeluaran
     );
 }

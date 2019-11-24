@@ -1,10 +1,16 @@
 package id.onestep.skripsi.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,10 +28,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Tanaman extends AppCompatActivity {
+    @BindView(R.id.txtTanamanLahan)
+    TextView txtTanamanLahan;
     @BindView(R.id.rvTanaman)
     RecyclerView rvTanaman;
     TanamanAdapter adapter;
     List<DataItem> list = new ArrayList<>();
+    @BindView(R.id.btnTambahTanaman)
+    RelativeLayout btnTambahTanaman;
+    @BindView(R.id.imgNoData)
+    ImageView imgNoData;
+    int area_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +47,42 @@ public class Tanaman extends AppCompatActivity {
         ButterKnife.bind(this);
         rvTanaman.setLayoutManager(new LinearLayoutManager(this));
         rvTanaman.setHasFixedSize(true);
-        getTanaman(getIntent().getIntExtra("area_id", 0));
+        txtTanamanLahan.setText("Lahan " + getIntent().getIntExtra("lahan", 0));
+        area_id = getIntent().getIntExtra("area_id", 0);
+        getTanaman(area_id);
+        btnTambahTanaman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog(area_id);
+            }
+        });
+    }
+
+    private void dialog(int area_id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_tanaman, null);
+        RelativeLayout btnTambahManual = (RelativeLayout) view.findViewById(R.id.btnTambahManual);
+        RelativeLayout btnTambahSppk = (RelativeLayout) view.findViewById(R.id.btnTambahSppk);
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        btnTambahManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Tanaman.this, TambahTanamanManual.class);
+                i.putExtra("area_id", area_id);
+                startActivity(i);
+                dialog.dismiss();
+            }
+        });
+        btnTambahSppk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Tanaman.this, TambahTanamanSPPK.class);
+                startActivity(i);
+                dialog.dismiss();
+            }
+        });
     }
 
     private void getTanaman(int area_id) {
@@ -48,7 +96,7 @@ public class Tanaman extends AppCompatActivity {
             @Override
             public void onResponse(Call<TanamanResponse> call, Response<TanamanResponse> response) {
                 if (response.body().isError()) {
-                    Toast.makeText(Tanaman.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    imgNoData.setVisibility(View.VISIBLE);
                 } else {
                     list = response.body().getData();
                     adapter = new TanamanAdapter(Tanaman.this, list);

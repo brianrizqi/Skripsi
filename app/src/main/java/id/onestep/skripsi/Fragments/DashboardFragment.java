@@ -44,6 +44,8 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class DashboardFragment extends Fragment {
+    @BindView(R.id.imgNoData)
+    ImageView imgNoData;
     @BindView(R.id.greeting)
     ImageView greeting;
     @BindView(R.id.txtGreeting)
@@ -77,7 +79,7 @@ public class DashboardFragment extends Fragment {
         greeting(window);
         rvArticle.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvArticle.setHasFixedSize(true);
-//        getArticle();
+        getArticle();
         return view;
     }
 
@@ -91,7 +93,7 @@ public class DashboardFragment extends Fragment {
             public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
                 list = response.body().getData();
                 if (list.size() == 0) {
-                    Toast.makeText(getActivity(), "a", Toast.LENGTH_SHORT).show();
+                    imgNoData.setVisibility(View.VISIBLE);
                 } else {
                     adapter = new ArticleAdapter(getActivity(), list);
                     rvArticle.setAdapter(adapter);
@@ -145,7 +147,7 @@ public class DashboardFragment extends Fragment {
                     .load("https://www.accuweather.com/images/weathericons/34.svg")
                     .into(imgCuaca);
         }
-        getWeather(timeOfDay);
+//        getWeather(timeOfDay);
     }
 
     private void getWeather(int timeOfDay) {
@@ -166,7 +168,9 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 if (timeOfDay >= 0 && timeOfDay < 18) {
-                    txtSuhu.setText(String.valueOf(response.body().getDailyForecasts().get(0).getTemperature().getMaximum().getValue()));
+                    txtSuhu.setText(String.valueOf(
+                            (response.body().getDailyForecasts().get(0).getTemperature().getMaximum().getValue() + response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()) / 2
+                    ));
                 } else if (timeOfDay >= 18 && timeOfDay < 24) {
                     txtSuhu.setText(String.valueOf(response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()));
                 }

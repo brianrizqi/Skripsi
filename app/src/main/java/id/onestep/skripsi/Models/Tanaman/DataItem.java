@@ -106,7 +106,7 @@ public class DataItem{
 	@Override
  	public String toString(){
 		return 
-			"DataItem{" + 
+			"Plant{" +
 			"plant_id = '" + plantId + '\'' + 
 			",loss = '" + loss + '\'' + 
 			",updated_at = '" + updatedAt + '\'' + 

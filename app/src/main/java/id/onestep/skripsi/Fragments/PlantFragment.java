@@ -4,6 +4,7 @@ package id.onestep.skripsi.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -47,6 +51,8 @@ public class PlantFragment extends Fragment {
     List<Lahan> list = new ArrayList<>();
     TinyDB tinyDB;
     double cuaca;
+    @BindView(R.id.imgNoData)
+    ImageView imgNoData;
 
     public PlantFragment() {
         // Required empty public constructor
@@ -59,10 +65,14 @@ public class PlantFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_plant, container, false);
         ButterKnife.bind(this, view);
         tinyDB = new TinyDB(getActivity());
+        Window window = getActivity().getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorWhite));
         rvLahan.setHasFixedSize(true);
         rvLahan.setLayoutManager(new LinearLayoutManager(getActivity()));
         getLahan(tinyDB.getInt("user_id"));
-        getWeather();
+//        getWeather();
         btnTambahLahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +94,7 @@ public class PlantFragment extends Fragment {
             @Override
             public void onResponse(Call<LahanResponse> call, Response<LahanResponse> response) {
                 if (response.body().isError()) {
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    imgNoData.setVisibility(View.VISIBLE);
                 } else {
                     Log.d(TAG, "onResponse: " + response.body().getData());
                     list = response.body().getData();
