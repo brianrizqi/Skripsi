@@ -7,6 +7,7 @@ import id.onestep.skripsi.Response.DefaultResponse;
 import id.onestep.skripsi.Response.LahanResponse;
 import id.onestep.skripsi.Response.LoginResponse;
 import id.onestep.skripsi.Response.PlantResponse;
+import id.onestep.skripsi.Response.SPPKResponse;
 import id.onestep.skripsi.Response.TanamanResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -71,5 +72,18 @@ public interface APIService {
             @Path("planting_id") int planting_id,
             @Field("pemasukan") int pemasukan,
             @Field("pengeluaran") int pengeluaran
+    );
+
+    @FormUrlEncoded
+    @POST("sppk")
+    Call<SPPKResponse> sppk(
+            @Field("suhu") double suhu,
+            @Field("curah_hujan") double curah_hujan,
+            @Field("tekstur_tanah") String tekstur_tanah,
+            @Field("kedalaman_tanah") double kedalaman_tanah,
+            @Field("ph") double ph,
+            @Field("bahaya_erosi") String bahaya_erosi,
+            @Field("drainase") String drainase,
+            @Field("rotasi_tanam") String rotasi_tanam
     );
 }

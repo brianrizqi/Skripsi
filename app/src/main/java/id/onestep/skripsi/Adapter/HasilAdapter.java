@@ -1,7 +1,6 @@
 package id.onestep.skripsi.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,14 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import id.onestep.skripsi.Hasil;
+import id.onestep.skripsi.Models.Result;
 import id.onestep.skripsi.R;
 
 public class HasilAdapter extends RecyclerView.Adapter<HasilAdapter.ViewHolder> {
     private Context context;
-    private List<Hasil> list;
+    private List<Result> list;
 
-    public HasilAdapter(Context context, List<Hasil> list) {
+    public HasilAdapter(Context context, List<Result> list) {
         this.context = context;
         this.list = list;
     }
@@ -37,13 +36,21 @@ public class HasilAdapter extends RecyclerView.Adapter<HasilAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Hasil post = list.get(position);
+        final Result post = list.get(position);
         String[] array = context.getResources().getStringArray(R.array.color);
         String randomStr = array[new Random().nextInt(array.length)];
-        holder.side.setBackgroundColor(Color.parseColor(randomStr));
+        if (post.getHasil().equalsIgnoreCase("sangat sesuai")) {
+            holder.side.setBackgroundResource(R.color.colorPrimary);
+        } else if (post.getHasil().equalsIgnoreCase("cukup sesuai")) {
+            holder.side.setBackgroundResource(R.color.colorOrange);
+        } else if (post.getHasil().equalsIgnoreCase("Rata-rata")) {
+            holder.side.setBackgroundResource(R.color.colorYellow);
+        } else if (post.getHasil().equalsIgnoreCase("tidak sesuai")) {
+            holder.side.setBackgroundResource(R.color.colorRed);
+        }
         holder.txtItemHasilTanaman.setText(post.getTanaman());
         holder.txtItemHasil.setText(post.getHasil());
-        holder.txtItemHasilPresentase.setText("Presentase : " + post.getPresentase() + "%");
+        holder.txtItemHasilPresentase.setText("Presentase : " + post.getNormalisasi() + "%");
     }
 
     @Override

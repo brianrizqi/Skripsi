@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,33 +13,67 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.onestep.skripsi.Adapter.HasilAdapter;
+import id.onestep.skripsi.Models.Result;
 import id.onestep.skripsi.R;
+import id.onestep.skripsi.Response.SPPKResponse;
+import id.onestep.skripsi.Service.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Hasil extends AppCompatActivity {
+    private static final String TAG = Hasil.class.getSimpleName();
     @BindView(R.id.rvHasil)
     RecyclerView rvHasil;
     HasilAdapter adapter;
-    List<id.onestep.skripsi.Hasil> list = new ArrayList<>();
+    List<Result> list = new ArrayList<>();
+    String suhu, curah_hujan, tekstur_tanah, kedalaman_tanah, ph, bahaya_erosi, drainase, rotasi_tanam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil);
         ButterKnife.bind(this);
+        suhu = getIntent().getStringExtra("suhu");
+        curah_hujan = getIntent().getStringExtra("curah_hujan");
+        tekstur_tanah = getIntent().getStringExtra("tekstur_tanah");
+        kedalaman_tanah = getIntent().getStringExtra("kedalaman_tanah");
+        ph = getIntent().getStringExtra("ph");
+        bahaya_erosi = getIntent().getStringExtra("bahaya_erosi");
+        drainase = getIntent().getStringExtra("drainase");
+        rotasi_tanam = getIntent().getStringExtra("rotasi_tanam");
         rvHasil.setHasFixedSize(true);
         rvHasil.setLayoutManager(new LinearLayoutManager(this));
-        getHasil();
+        getHasil(suhu, curah_hujan, tekstur_tanah, kedalaman_tanah, ph, bahaya_erosi, drainase, rotasi_tanam);
     }
 
-    private void getHasil() {
-        list.add(new id.onestep.skripsi.Hasil("Padi", "Sangat Sesuai", 90));
-        list.add(new id.onestep.skripsi.Hasil("Jagung", "Sangat Sesuai", 80));
-        list.add(new id.onestep.skripsi.Hasil("Ubi Kayu", "Cukup Sesuai", 70));
-        list.add(new id.onestep.skripsi.Hasil("Ubi Jalar", "Cukup Sesuai", 65));
-        list.add(new id.onestep.skripsi.Hasil("Kacang Tanah", "Rata rata", 45));
-        list.add(new id.onestep.skripsi.Hasil("Talas", "Tidak Sesuai", 20));
-        adapter = new HasilAdapter(this, list);
-        rvHasil.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+    private void getHasil(String suhu, String curah_hujan, String tekstur_tanah, String kedalaman_tanah, String ph, String bahaya_erosi, String drainase, String rotasi_tanam) {
+        Call<SPPKResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .sppk(
+                        Double.parseDouble(suhu),
+                        Double.parseDouble(curah_hujan),
+                        tekstur_tanah,
+                        Double.parseDouble(kedalaman_tanah),
+                        Double.parseDouble(ph),
+                        bahaya_erosi,
+                        drainase,
+                        rotasi_tanam
+                );
+        call.enqueue(new Callback<SPPKResponse>() {
+            @Override
+            public void onResponse(Call<SPPKResponse> call, Response<SPPKResponse> response) {
+                list = response.body().getData();
+                adapter = new HasilAdapter(Hasil.this, list);
+                rvHasil.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<SPPKResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

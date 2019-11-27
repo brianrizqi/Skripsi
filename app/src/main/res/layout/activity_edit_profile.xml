@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:padding="10dp"
-    tools:context=".Activities.TambahTanamanSPPK">
+    tools:context=".Activities.EditProfile">
 
     <TextView
         android:id="@+id/txt"
@@ -14,15 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/source_semi"
-        android:text="Tambah Tanaman SPPK"
+        android:text="Edit Profile"
         android:textColor="@color/colorBlack"
         android:textSize="20dp" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/card"
         android:layout_below="@id/txt"
         android:orientation="vertical">
 
@@ -33,64 +31,31 @@
             android:layout_marginTop="20dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSuhu"
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Suhu"
-                android:inputType="numberDecimal"
+                android:hint="Nama"
+                android:inputType="text"
                 android:maxLength="32"
-                tools:text="1500" />
+                tools:text="Brianrizqi" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCurahHujan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Curah Hujan"
-                android:inputType="numberDecimal"
-                android:maxLength="32"
-                tools:text="1500" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/txtTanaman"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/source_reg"
-            android:text="Tekstur Tanah"
-            android:textSize="16dp" />
-
-        <Spinner
-            android:id="@+id/spinnerTekstur"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </Spinner>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etKedalamanTanah"
+                android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Kedalaman Tanah"
-                android:inputType="numberDecimal"
+                android:hint="Username"
+                android:inputType="text"
                 android:maxLength="32"
-                tools:text="1500" />
+                tools:text="briarnzqi" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,67 +63,40 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/txt"
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPH"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="PH"
-                android:inputType="numberDecimal"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:maxLength="32"
-                tools:text="1500" />
+                tools:text="briarnzqi@cs.unej.ac.id" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/source_reg"
-            android:text="Bahaya Erosi"
-            android:textSize="16dp" />
+            app:passwordToggleEnabled="true">
 
-        <Spinner
-            android:id="@+id/spinnerBahayaErosi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLength="32"
+                tools:text="briarnzqi" />
 
-        </Spinner>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/source_reg"
-            android:text="Drainase"
-            android:textSize="16dp" />
-
-        <Spinner
-            android:id="@+id/spinnerDrainase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </Spinner>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/source_reg"
-            android:text="Tanaman Sebelumnya"
-            android:textSize="16dp" />
-
-        <Spinner
-            android:id="@+id/spinnerRotasiTanam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </Spinner>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -168,7 +106,7 @@
         app:cardElevation="1dp">
 
         <RelativeLayout
-            android:id="@+id/btnCek"
+            android:id="@+id/btnTambahLahan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary">
@@ -179,7 +117,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/source_semi"
-                android:text="Cek Tanaman"
+                android:text="Ubah"
                 android:textColor="@color/colorWhite"
                 android:textSize="18dp" />
 

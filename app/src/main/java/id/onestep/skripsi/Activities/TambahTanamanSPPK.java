@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +29,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TambahTanamanSPPK extends AppCompatActivity {
+    private static final String TAG = TambahTanamanSPPK.class.getSimpleName();
+    @BindView(R.id.etSuhu)
+    TextInputEditText etSuhu;
+    @BindView(R.id.etCurahHujan)
+    TextInputEditText etCurahHujan;
+    @BindView(R.id.etKedalamanTanah)
+    TextInputEditText etKedalamanTanah;
+    @BindView(R.id.etPH)
+    TextInputEditText etPH;
     @BindView(R.id.spinnerBahayaErosi)
     Spinner spinnerBahayaErosi;
     @BindView(R.id.spinnerDrainase)
@@ -33,8 +46,6 @@ public class TambahTanamanSPPK extends AppCompatActivity {
     Spinner spinnerTekstur;
     @BindView(R.id.spinnerRotasiTanam)
     Spinner spinnerRotasiTanam;
-    List<Plant> list = new ArrayList<>();
-    HashMap<Integer, Integer> spinnerMap = new HashMap<Integer, Integer>();
     @BindView(R.id.btnCek)
     RelativeLayout btnCek;
 
@@ -56,7 +67,43 @@ public class TambahTanamanSPPK extends AppCompatActivity {
     }
 
     private void sppk() {
+        String suhu = etSuhu.getText().toString();
+        if (suhu.isEmpty()) {
+            etSuhu.setError("Suhu is required");
+            etSuhu.requestFocus();
+            return;
+        }
+        String curah_hujan = etCurahHujan.getText().toString();
+        if (curah_hujan.isEmpty()) {
+            etCurahHujan.setError("Curah Hujan is required");
+            etCurahHujan.requestFocus();
+            return;
+        }
+        String tekstur_tanah = spinnerTekstur.getSelectedItem().toString();
+        String kedalaman_tanah = etKedalamanTanah.getText().toString();
+        if (kedalaman_tanah.isEmpty()) {
+            etKedalamanTanah.setError("Kedalaman Tanah is required");
+            etKedalamanTanah.requestFocus();
+            return;
+        }
+        String ph = etPH.getText().toString();
+        if (ph.isEmpty()) {
+            etPH.setError("PH is required");
+            etPH.requestFocus();
+            return;
+        }
+        String bahaya_erosi = spinnerBahayaErosi.getSelectedItem().toString();
+        String drainase = spinnerDrainase.getSelectedItem().toString();
+        String rotasi_tanam = spinnerRotasiTanam.getSelectedItem().toString();
         Intent i = new Intent(TambahTanamanSPPK.this, Hasil.class);
+        i.putExtra("suhu", suhu);
+        i.putExtra("curah_hujan", curah_hujan);
+        i.putExtra("tekstur_tanah", tekstur_tanah);
+        i.putExtra("kedalaman_tanah", kedalaman_tanah);
+        i.putExtra("ph", ph);
+        i.putExtra("bahaya_erosi", bahaya_erosi);
+        i.putExtra("drainase", drainase);
+        i.putExtra("rotasi_tanam", rotasi_tanam);
         startActivity(i);
     }
 
@@ -68,7 +115,7 @@ public class TambahTanamanSPPK extends AppCompatActivity {
     }
 
     private void getDrainase() {
-        String drainase[] = {"Baik"};
+        String drainase[] = {"Terhambat", "Agak Terhambat", "Agak Cepat", "Cepat", "Baik"};
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, drainase);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerDrainase.setAdapter(spinnerArrayAdapter);
@@ -82,28 +129,9 @@ public class TambahTanamanSPPK extends AppCompatActivity {
     }
 
     private void getTanaman() {
-        Call<PlantResponse> call = Service
-                .getInstance()
-                .getAPI()
-                .getTumbuhan();
-        call.enqueue(new Callback<PlantResponse>() {
-            @Override
-            public void onResponse(Call<PlantResponse> call, Response<PlantResponse> response) {
-                list = response.body().getData();
-                String[] spinnerSubArray = new String[list.size()];
-                for (int i = 0; i < list.size(); i++) {
-                    spinnerMap.put(i, list.get(i).getId());
-                    spinnerSubArray[i] = list.get(i).getName();
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, spinnerSubArray);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerRotasiTanam.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<PlantResponse> call, Throwable t) {
-                Toast.makeText(TambahTanamanSPPK.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        String tekstur[] = {"Padi", "Jagung", "Ubi Jalar", "Ubi Kayu", "Talas", "Kacang Tanah"};
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tekstur);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinnerRotasiTanam.setAdapter(spinnerArrayAdapter);
     }
 }

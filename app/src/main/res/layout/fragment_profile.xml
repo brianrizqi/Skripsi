@@ -14,7 +14,16 @@
         android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_power" />
+        android:src="@drawable/ic_power"
+        android:tint="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/btnEditProfile"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_settings_black_24dp"
+        android:tint="@color/colorPrimary" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"

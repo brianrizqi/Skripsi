@@ -8,9 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 import java.util.Random;
@@ -57,6 +61,33 @@ public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> 
                 activity.startActivity(i);
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                dialogButton(post.getId());
+                return true;
+            }
+        });
+    }
+
+    private void dialogButton(int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        View view = LayoutInflater.from(activity).inflate(R.layout.dialog_lahan, null);
+        RelativeLayout btnUpdateLahan = (RelativeLayout) view.findViewById(R.id.btnUpdateLahan);
+        TextInputEditText etLarge = (TextInputEditText) view.findViewById(R.id.etLarge);
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        btnUpdateLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateLahan(id, etLarge);
+            }
+        });
+    }
+
+    private void updateLahan(int id, TextInputEditText etLarge) {
+        Toast.makeText(activity, "" + id, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.onestep.skripsi.Activities.EditProfile;
 import id.onestep.skripsi.Activities.MainActivity;
 import id.onestep.skripsi.Activities.Masuk;
 import id.onestep.skripsi.Others.TinyDB;
@@ -38,6 +39,8 @@ public class ProfileFragment extends Fragment {
     TinyDB tinyDB;
     @BindView(R.id.btnLogout)
     ImageView btnLogout;
+    @BindView(R.id.btnEditProfile)
+    ImageView btnEditProfile;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -61,6 +64,14 @@ public class ProfileFragment extends Fragment {
                 Intent i = new Intent(getActivity(), Masuk.class);
                 startActivity(i);
                 getActivity().finish();
+            }
+        });
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EditProfile.class);
+                i.putExtra("user_id", tinyDB.getInt("user_id"));
+                startActivity(i);
             }
         });
         getProfile(tinyDB.getInt("user_id"));
