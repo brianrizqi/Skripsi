@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -51,6 +52,36 @@ public class HasilAdapter extends RecyclerView.Adapter<HasilAdapter.ViewHolder> 
         holder.txtItemHasilTanaman.setText(post.getTanaman());
         holder.txtItemHasil.setText(post.getHasil());
         holder.txtItemHasilPresentase.setText("Presentase : " + post.getNormalisasi() + "%");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog(post.getTanaman(), post.getId());
+            }
+        });
+    }
+
+    private void dialog(String tanaman, int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_verifikasi_hasil, null);
+        RelativeLayout btnDialogHasilTambah = (RelativeLayout) view.findViewById(R.id.btnDialogHasilTambah);
+        RelativeLayout btnDialogHasilBatal = (RelativeLayout) view.findViewById(R.id.btnDialogHasilBatal);
+        TextView txtDialogHasil = (TextView) view.findViewById(R.id.txtDialogHasil);
+        txtDialogHasil.setText("Apakah tanaman " + tanaman + " akan ditanam untuk periode selanjutnya ?");
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        btnDialogHasilTambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                tambah(id);
+            }
+        });
+        btnDialogHasilBatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override
