@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class HasilAdapter extends RecyclerView.Adapter<HasilAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Result post = list.get(position);
+        holder.itemView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade));
         String[] array = context.getResources().getStringArray(R.array.color);
         String randomStr = array[new Random().nextInt(array.length)];
         if (post.getHasil().equalsIgnoreCase("sangat sesuai")) {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Article post = list.get(position);
+        holder.itemView.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade));
         holder.txtArticleDate.setText(post.getCreatedAt());
         holder.txtArticleTitle.setText(post.getTitle());
         Glide.with(activity)

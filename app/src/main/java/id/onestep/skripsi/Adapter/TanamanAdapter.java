@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class TanamanAdapter extends RecyclerView.Adapter<TanamanAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final DataItem post = list.get(position);
+        holder.itemView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade));
         DecimalFormat formatter = new DecimalFormat("#,###,###");
         String pemasukan = formatter.format(post.getProfit());
         String pengeluaran = formatter.format(post.getLoss());

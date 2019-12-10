@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Lahan post = list.get(position);
+        holder.itemView.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade));
         String[] array = activity.getResources().getStringArray(R.array.color);
         String randomStr = array[new Random().nextInt(array.length)];
         holder.side.setBackgroundColor(Color.parseColor(randomStr));
