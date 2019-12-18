@@ -16,9 +16,6 @@ public class Users{
 	@SerializedName("email_verified_at")
 	private Object emailVerifiedAt;
 
-	@SerializedName("land_area")
-	private int landArea;
-
 	@SerializedName("id")
 	private int id;
 
@@ -63,14 +60,6 @@ public class Users{
 		return emailVerifiedAt;
 	}
 
-	public void setLandArea(int landArea){
-		this.landArea = landArea;
-	}
-
-	public int getLandArea(){
-		return landArea;
-	}
-
 	public void setId(int id){
 		this.id = id;
 	}
@@ -110,8 +99,7 @@ public class Users{
 			"updated_at = '" + updatedAt + '\'' + 
 			",name = '" + name + '\'' + 
 			",created_at = '" + createdAt + '\'' + 
-			",email_verified_at = '" + emailVerifiedAt + '\'' + 
-			",land_area = '" + landArea + '\'' + 
+			",email_verified_at = '" + emailVerifiedAt + '\'' +
 			",id = '" + id + '\'' + 
 			",deleted_at = '" + deletedAt + '\'' + 
 			",email = '" + email + '\'' + 

@@ -9,6 +9,7 @@ import id.onestep.skripsi.Response.LoginResponse;
 import id.onestep.skripsi.Response.PlantResponse;
 import id.onestep.skripsi.Response.SPPKResponse;
 import id.onestep.skripsi.Response.TanamanResponse;
+import id.onestep.skripsi.Response.UsersResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -85,5 +86,20 @@ public interface APIService {
             @Field("bahaya_erosi") String bahaya_erosi,
             @Field("drainase") String drainase,
             @Field("rotasi_tanam") String rotasi_tanam
+    );
+
+    @GET("user/{id}")
+    Call<UsersResponse> getUser(
+            @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("user")
+    Call<DefaultResponse> updateUser(
+            @Field("id") int id,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("username") String username,
+            @Field("password") String password
     );
 }

@@ -48,12 +48,14 @@ public class TambahTanamanSPPK extends AppCompatActivity {
     Spinner spinnerRotasiTanam;
     @BindView(R.id.btnCek)
     RelativeLayout btnCek;
+    int area_id, lahan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_tanaman_sppk);
         ButterKnife.bind(this);
+        area_id = getIntent().getIntExtra("area_id", 0);
         getTanaman();
         getTekstur();
         getDrainase();
@@ -61,12 +63,12 @@ public class TambahTanamanSPPK extends AppCompatActivity {
         btnCek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sppk();
+                sppk(area_id, lahan);
             }
         });
     }
 
-    private void sppk() {
+    private void sppk(int area_id, int lahan) {
         String suhu = etSuhu.getText().toString();
         if (suhu.isEmpty()) {
             etSuhu.setError("Suhu is required");
@@ -96,6 +98,8 @@ public class TambahTanamanSPPK extends AppCompatActivity {
         String drainase = spinnerDrainase.getSelectedItem().toString();
         String rotasi_tanam = spinnerRotasiTanam.getSelectedItem().toString();
         Intent i = new Intent(TambahTanamanSPPK.this, Hasil.class);
+        i.putExtra("area_id", area_id);
+        i.putExtra("lahan", lahan);
         i.putExtra("suhu", suhu);
         i.putExtra("curah_hujan", curah_hujan);
         i.putExtra("tekstur_tanah", tekstur_tanah);

@@ -106,7 +106,7 @@
         app:cardElevation="1dp">
 
         <RelativeLayout
-            android:id="@+id/btnTambahLahan"
+            android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary">

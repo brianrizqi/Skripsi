@@ -52,12 +52,12 @@ public class DashboardFragment extends Fragment {
     TextView txtGreeting;
     @BindView(R.id.bgTextGreeting)
     RelativeLayout bgTextGreeting;
-    @BindView(R.id.txtCuaca)
-    TextView txtCuaca;
-    @BindView(R.id.imgCuaca)
-    ImageView imgCuaca;
-    @BindView(R.id.txtSuhu)
-    TextView txtSuhu;
+//    @BindView(R.id.txtCuaca)
+//    TextView txtCuaca;
+//    @BindView(R.id.imgCuaca)
+//    ImageView imgCuaca;
+//    @BindView(R.id.txtSuhu)
+//    TextView txtSuhu;
     @BindView(R.id.rvArticle)
     RecyclerView rvArticle;
     ArticleAdapter adapter;
@@ -120,10 +120,10 @@ public class DashboardFragment extends Fragment {
             txtGreeting.setText("Selamat Pagi");
             bgTextGreeting.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBgMorning));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorBgMorning));
-            txtCuaca.setText("Hari Ini");
-            Glide.with(getActivity())
-                    .load("https://www.accuweather.com/images/weathericons/6.svg")
-                    .into(imgCuaca);
+//            txtCuaca.setText("Hari Ini");
+//            Glide.with(getActivity())
+//                    .load("https://www.accuweather.com/images/weathericons/6.svg")
+//                    .into(imgCuaca);
         } else if (timeOfDay >= 12 && timeOfDay < 18) {
             Glide.with(getActivity())
                     .load(R.mipmap.afternoon)
@@ -131,10 +131,10 @@ public class DashboardFragment extends Fragment {
             txtGreeting.setText("Selamat Siang");
             bgTextGreeting.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBgAfternoon));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorBgAfternoon));
-            txtCuaca.setText("Hari Ini");
-            Glide.with(getActivity())
-                    .load("https://www.accuweather.com/images/weathericons/6.svg")
-                    .into(imgCuaca);
+//            txtCuaca.setText("Hari Ini");
+//            Glide.with(getActivity())
+//                    .load("https://www.accuweather.com/images/weathericons/6.svg")
+//                    .into(imgCuaca);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
             Glide.with(getActivity())
                     .load(R.mipmap.night)
@@ -142,44 +142,44 @@ public class DashboardFragment extends Fragment {
             txtGreeting.setText("Selamat Malam");
             bgTextGreeting.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBgNight));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorBgNight));
-            txtCuaca.setText("Malam Ini");
-            Glide.with(getActivity())
-                    .load("https://www.accuweather.com/images/weathericons/34.svg")
-                    .into(imgCuaca);
+//            txtCuaca.setText("Malam Ini");
+//            Glide.with(getActivity())
+//                    .load("https://www.accuweather.com/images/weathericons/34.svg")
+//                    .into(imgCuaca);
         }
 //        getWeather(timeOfDay);
     }
 
-    private void getWeather(int timeOfDay) {
-        String apikey = "uVvLKySk6THbf19xlGxG1fFzN9AO2C89";
-        String language = "id-id";
-        boolean details = true;
-        boolean metric = true;
-        Call<WeatherResponse> call = WeatherService
-                .getInstance()
-                .getAPI()
-                .getCurrentWeather(
-                        apikey,
-                        language,
-                        details,
-                        metric
-                );
-        call.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                if (timeOfDay >= 0 && timeOfDay < 18) {
-                    txtSuhu.setText(String.valueOf(
-                            (response.body().getDailyForecasts().get(0).getTemperature().getMaximum().getValue() + response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()) / 2
-                    ));
-                } else if (timeOfDay >= 18 && timeOfDay < 24) {
-                    txtSuhu.setText(String.valueOf(response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void getWeather(int timeOfDay) {
+//        String apikey = "uVvLKySk6THbf19xlGxG1fFzN9AO2C89";
+//        String language = "id-id";
+//        boolean details = true;
+//        boolean metric = true;
+//        Call<WeatherResponse> call = WeatherService
+//                .getInstance()
+//                .getAPI()
+//                .getCurrentWeather(
+//                        apikey,
+//                        language,
+//                        details,
+//                        metric
+//                );
+//        call.enqueue(new Callback<WeatherResponse>() {
+//            @Override
+//            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+//                if (timeOfDay >= 0 && timeOfDay < 18) {
+//                    txtSuhu.setText(String.valueOf(
+//                            (response.body().getDailyForecasts().get(0).getTemperature().getMaximum().getValue() + response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()) / 2
+//                    ));
+//                } else if (timeOfDay >= 18 && timeOfDay < 24) {
+//                    txtSuhu.setText(String.valueOf(response.body().getDailyForecasts().get(0).getTemperature().getMinimum().getValue()));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+//                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }

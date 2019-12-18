@@ -38,7 +38,7 @@ public class Tanaman extends AppCompatActivity {
     RelativeLayout btnTambahTanaman;
     @BindView(R.id.imgNoData)
     ImageView imgNoData;
-    int area_id;
+    int area_id, lahan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,8 @@ public class Tanaman extends AppCompatActivity {
         ButterKnife.bind(this);
         rvTanaman.setLayoutManager(new LinearLayoutManager(this));
         rvTanaman.setHasFixedSize(true);
-        txtTanamanLahan.setText("Lahan " + getIntent().getIntExtra("lahan", 0));
+        lahan = getIntent().getIntExtra("lahan", 0);
+        txtTanamanLahan.setText("Lahan " + lahan);
         area_id = getIntent().getIntExtra("area_id", 0);
         getTanaman(area_id);
         btnTambahTanaman.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +80,8 @@ public class Tanaman extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Tanaman.this, TambahTanamanSPPK.class);
+                i.putExtra("lahan", lahan);
+                i.putExtra("area_id", area_id);
                 startActivity(i);
                 dialog.dismiss();
             }
