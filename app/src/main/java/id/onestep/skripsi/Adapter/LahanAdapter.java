@@ -25,6 +25,12 @@ import butterknife.ButterKnife;
 import id.onestep.skripsi.Models.Lahan.Lahan;
 import id.onestep.skripsi.R;
 import id.onestep.skripsi.Activities.Tanaman;
+import id.onestep.skripsi.Response.DefaultResponse;
+import id.onestep.skripsi.Response.LahanEditResponse;
+import id.onestep.skripsi.Service.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> {
     private Activity activity;
@@ -77,19 +83,67 @@ public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> 
         View view = LayoutInflater.from(activity).inflate(R.layout.dialog_lahan, null);
         RelativeLayout btnUpdateLahan = (RelativeLayout) view.findViewById(R.id.btnUpdateLahan);
         TextInputEditText etLarge = (TextInputEditText) view.findViewById(R.id.etLarge);
+        getData(etLarge, id);
         builder.setView(view);
         final AlertDialog dialog = builder.create();
         dialog.show();
         btnUpdateLahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateLahan(id, etLarge);
+                updateLahan(dialog, id, etLarge);
             }
         });
     }
 
-    private void updateLahan(int id, TextInputEditText etLarge) {
-        Toast.makeText(activity, "" + id, Toast.LENGTH_SHORT).show();
+    private void getData(TextInputEditText etLarge, int id) {
+        Call<LahanEditResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .getLahanId(
+                        id
+                );
+        call.enqueue(new Callback<LahanEditResponse>() {
+            @Override
+            public void onResponse(Call<LahanEditResponse> call, Response<LahanEditResponse> response) {
+                if (response.body().isError()) {
+                    Toast.makeText(activity, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    etLarge.setText("" + response.body().getData().getLarge());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LahanEditResponse> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateLahan(AlertDialog dialog, int id, TextInputEditText etLarge) {
+        String large = etLarge.getText().toString().trim();
+        Call<DefaultResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .updateLahan(
+                        id,
+                        Integer.parseInt(large)
+                );
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                if (response.body().isError()) {
+                    Toast.makeText(activity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(activity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

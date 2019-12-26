@@ -4,6 +4,7 @@ package id.onestep.skripsi.Service;
 import id.onestep.skripsi.Models.Weathers;
 import id.onestep.skripsi.Response.ArticleResponse;
 import id.onestep.skripsi.Response.DefaultResponse;
+import id.onestep.skripsi.Response.LahanEditResponse;
 import id.onestep.skripsi.Response.LahanResponse;
 import id.onestep.skripsi.Response.LoginResponse;
 import id.onestep.skripsi.Response.PlantResponse;
@@ -101,5 +102,17 @@ public interface APIService {
             @Field("email") String email,
             @Field("username") String username,
             @Field("password") String password
+    );
+
+    @GET("area/edit/{id}")
+    Call<LahanEditResponse> getLahanId(
+            @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("area/{id}/edit")
+    Call<DefaultResponse> updateLahan(
+            @Path("id") int id,
+            @Field("large") int large
     );
 }
