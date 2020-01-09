@@ -58,6 +58,11 @@ public interface APIService {
             @Path("area_id") int area_id
     );
 
+    @GET("planting/latest/{area_id}")
+    Call<DefaultResponse> getLatestPlant(
+            @Path("area_id") int area_id
+    );
+
     @GET("plant")
     Call<PlantResponse> getTumbuhan();
 

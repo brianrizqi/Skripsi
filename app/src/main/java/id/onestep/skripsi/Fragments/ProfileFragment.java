@@ -74,16 +74,16 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
-        getProfile(tinyDB.getInt("user_id"));
+        getProfile(tinyDB.getInt("user_id"), tinyDB.getString("name"), tinyDB.getString("username"));
         return view;
     }
 
-    private void getProfile(int user_id) {
+    private void getProfile(int user_id, String name, String username) {
         Glide.with(getActivity())
                 .load("https://cdn.dribbble.com/users/504585/screenshots/2006389/terrible_designer_avatar-01.jpg")
                 .into(imgProfile);
-        txtProfileName.setText("Brian Rizqi");
-        txtProfileUsername.setText("@brianrizqi");
+        txtProfileName.setText(name);
+        txtProfileUsername.setText("\u0040" + username);
     }
 
 }

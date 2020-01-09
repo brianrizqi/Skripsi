@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import id.onestep.skripsi.Adapter.TanamanAdapter;
 import id.onestep.skripsi.Models.Tanaman.DataItem;
 import id.onestep.skripsi.R;
+import id.onestep.skripsi.Response.DefaultResponse;
 import id.onestep.skripsi.Response.TanamanResponse;
 import id.onestep.skripsi.Service.Service;
 import retrofit2.Call;
@@ -54,7 +55,29 @@ public class Tanaman extends AppCompatActivity {
         btnTambahTanaman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog(area_id);
+                getLatest(area_id);
+            }
+        });
+    }
+
+    private void getLatest(int area_id) {
+        Call<DefaultResponse> call = Service
+                .getInstance()
+                .getAPI()
+                .getLatestPlant(area_id);
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                if (response.body().isError()) {
+                    Toast.makeText(Tanaman.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                } else {
+                    dialog(area_id);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                Toast.makeText(Tanaman.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

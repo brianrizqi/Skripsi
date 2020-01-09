@@ -88,6 +88,8 @@ public class Masuk extends AppCompatActivity {
                 if (!response.body().isError()) {
                     tinyDB.putBoolean("isLogin", true);
                     tinyDB.putInt("user_id", response.body().getUsers().getId());
+                    tinyDB.putString("name", response.body().getUsers().getName());
+                    tinyDB.putString("username", response.body().getUsers().getUsername());
                     Toast.makeText(Masuk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Masuk.this, MainActivity.class);
                     startActivity(i);

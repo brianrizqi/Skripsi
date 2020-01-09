@@ -58,7 +58,8 @@ public class LahanAdapter extends RecyclerView.Adapter<LahanAdapter.ViewHolder> 
         holder.txtItemLahanJudul.setText("Lahan " + (position + 1));
         holder.txtItemLahanLuas.setText(post.getLarge() + " HA");
         if (post.getPlantings().size() != 0) {
-            holder.txtItemLahanTanaman.setText("Tanaman " + post.getPlantings().get(0).getPlant().getName());
+            int count = post.getPlantings().size();
+            holder.txtItemLahanTanaman.setText("Tanaman " + post.getPlantings().get(count - 1).getPlant().getName());
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
